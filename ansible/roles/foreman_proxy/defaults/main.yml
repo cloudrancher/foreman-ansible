@@ -41,3 +41,9 @@ foreman_proxy_tftp_dir: /srv/tftp
 foreman_proxy_tftp_pxe_dir:
   - boot
   - pxelinux.cfg
+
+foreman_proxy_dns: false
+foreman_proxy_dns_protocol: http
+foreman_proxy_dns_provider: dns_nsupdate
+foreman_proxy_dns_ttl: 86400
+foreman_proxy_dns_key_file: /etc/named.rndc-foreman.key

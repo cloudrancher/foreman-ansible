@@ -34,6 +34,15 @@
   notify:
     - restart foreman-proxy
 
+- name: template foreman-proxy dns.yaml
+  template:
+    src=dns.yml.j2
+    dest=/etc/foreman-proxy/settings.d/dns.yml
+    backup=yes
+  when: foreman_proxy_dns
+  notify:
+    - restart foreman-proxy
+
 - name: template foreman-proxy tftp.yaml
   template:
     src=tftp.yml.j2
