@@ -46,4 +46,4 @@ foreman_proxy_dns: false
 foreman_proxy_dns_provider: dns_nsupdate
 foreman_proxy_dns_ttl: 86400
 foreman_proxy_dns_key_file: /etc/named.rndc-foreman.key
-foreman_proxy_dns_server: localhost
+
