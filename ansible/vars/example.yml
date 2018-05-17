@@ -21,3 +21,28 @@ isc_dhcp_server_subnet:
 
 foreman_db_username: foreman
 foreman_db_password: supersecret$42
+
+default_zone: internal
+firewalld__zone_interface:
+  external: enp0s3
+  internal: enp0s8
+  trusted: enp0s9
+firewalld_service_rules:
+  dhcp:
+    state: enabled
+    zone: internal
+  dns:
+    state: enabled
+    zone: internal
+  http:
+    state: enabled
+    zone: internal
+  https:
+    state: enabled
+    zone: internal
+  puppetmaster:
+    state: enabled
+    zone: internal
+  tftp:
+    state: enabled
+    zone: internal
