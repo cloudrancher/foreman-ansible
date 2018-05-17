@@ -24,6 +24,7 @@ which provide the following features:
 * setup webserver (plain nginx as a proxy or nginx-passenger)
 * setup isc-dhcp-server
 * setup TFTP server
+* setup named (bind)
 * setup foreman-proxy
 * setup Foreman including configuration (templates, hosts, domains, etc.)
 
@@ -34,7 +35,7 @@ In addition this playbook makes use of `foreman-yml`_ to automatically configure
 Foreman through the API based on a YAML file, which includes adding all 
 templates, OS, media, hosts, etc. and linking them accordingly.
 
-Please note that at the current time the following distributions are supported:
+Please note that at the current time the following distributions are supported (At cloudrancher we only currently test with CentOS 7):
 
 * Debian 7 & 8
 * Ubuntu 14.04 & 16.04
@@ -47,7 +48,7 @@ The target machine should fulfill the following requirements before the
 playbook is applied:
 
 * FQDN configured
-* SELinux disabled
+* |ss| SELinux disabled |se|
 * Required ports 67, 69, 80, 443, etc. open
 * Internet and repository access (e.g. Red Hat Optional repository)
 
@@ -133,3 +134,10 @@ See the `LICENSE`_ file.
 
 .. _LICENSE: LICENSE
 .. _foreman-yml: https://github.com/adfinis-sygroup/foreman-yml
+.. |ss| raw:: html
+
+   <strike>
+
+.. |se| raw:: html
+
+   </strike>
