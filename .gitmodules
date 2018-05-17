@@ -1,3 +1,6 @@
 [submodule "ansible/roles/foreman_yml/files/foreman-yml"]
 	path = ansible/roles/foreman_yml/files/foreman-yml
 	url = https://github.com/adfinis-sygroup/foreman-yml.git
+[submodule "ansible/roles/ansible-firewalld-role"]
+	path = ansible/roles/ansible-firewalld-role
+	url = https://github.com/FlatKey/ansible-firewalld-role.git
