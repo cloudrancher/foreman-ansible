@@ -13,4 +13,5 @@
     - { role: foreman_proxy }
     - { role: passenger_nginx }
     - { role: ansible-firewalld-role }
+    - { role: bind }
     - { role: foreman_yml }
