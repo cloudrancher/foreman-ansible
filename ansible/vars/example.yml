@@ -11,13 +11,13 @@ mysql_users:
     priv: "foreman.*:ALL"
 
 isc_dhcp_server_subnet:
-  - netaddress: 192.168.121.0
+  - netaddress: 172.16.2.0
     netmask: 255.255.255.0
-    gateway: 192.168.121.1
-    domain: lab.local
-    domain_search: lab.local
-    dns: 192.168.121.1
-    range: 192.168.121.20 192.168.121.100
+    gateway: 172.16.2.1
+    domain: foreman-net.local
+    domain_search: foreman-net.local
+    dns: 172.16.2.1
+    range: 172.16.2.100 172.16.2.200
 
 foreman_db_username: foreman
 foreman_db_password: supersecret$42
@@ -46,3 +46,76 @@ firewalld_service_rules:
   tftp:
     state: enabled
     zone: internal
+
+foreman_proxy_dns: true
+
+bind_dir_cache: /var/named
+bind_dir_data: /var/named/data
+bind_dir_log: /var/log/named
+
+bind_named_conf_options: |
+  listen-on port 53 { any; }; 
+  listen-on-v6 port 53 { any; };    
+  directory "{{ bind_dir_cache }}";
+  pid-file "/run/named/named.pid"
+  recursion yes;
+  dnssec-enable yes;
+  dnssec-validation no;
+  
+  dump-file "{{ bind_dir_data }}/cache_dump.db";
+  statistics-file "{{ bind_dir_data }}/named_stats.txt";
+  memstatistics-file "{{ bind_dir_data }}/named_mem_stats.txt";
+  
+  managed-keys-directory "{{ bind_dir_cache }}/dynamic";
+  session-keyfile "/run/named/session.key";
+
+bind_named_conf_controls: |
+  inet 127.0.0.1 allow { 127.0.0.1; } keys { foreman; };
+
+bind_named_conf_logging:
+  channels:
+    default_debug: |
+      file "data/named.run";
+      severity dynamic;
+
+bind_zones:
+  foreman.local:
+    type: master
+    file: "\"{{ bind_dir_data }}/foreman.local.hosts\""
+  foreman-net.local:
+    type: master
+    file: "\"{{ bind_dir_data }}/foreman-net.local.hosts\""
+  2.16.172.in-addr.arpa:
+    type: master
+    file: "\"{{ bind_dir_data }}/172.16.2.rev\""    
+
+bind_zone_databases:
+  foreman.local:
+    directives:
+      ORIGIN: foreman.local.
+      TTL: 5m
+    resource_records:
+      - { name: '@', ttl: '1w', class: 'IN', type: 'SOA', data: '@ rname.invalid. ( 0 1d 1h 1w 1h )' }
+      - { name: '@', ttl: '1w', class: 'IN', type: 'NS',  data: 'foreman.local.' }
+      - { name: '@', ttl: '1w', class: 'IN', type: 'PTR', data: '172.16.2.1' }
+  foreman-net.local:
+    directives:
+      ORIGIN: foreman-net.local.
+      TTL: 5m
+    resource_records:
+      - { name: '@', ttl: '1w', class: 'IN', type: 'SOA', data: '@ rname.invalid. ( 0 1d 1h 1w 1h )' }
+      - { name: '@', ttl: '1w', class: 'IN', type: 'NS',  data: 'foreman-net.local.' }
+      - { name: '@', ttl: '1w', class: 'IN', type: 'PTR', data: '172.16.2.1' }
+  2.16.172.in-addr.arpa:
+    directives:
+      ORIGIN: 2.16.172.in-addr.arpa.
+      TTL: 5m
+    resource_records:
+      - { name: '@', ttl: '1w', class: 'IN', type: 'SOA', data: 'foreman.local. rname.invalid. ( 0 1d 1h 1w 1h )' }
+      - { name: '@', ttl: '1w', class: 'IN', type: 'NS',  data: 'foreman.local.' }
+      - { name: '1', ttl: '1w', class: 'IN', type: 'PTR', data: 'foreman.local.' }
+            
+bind_local_includes: 
+  - /etc/named.rfc1912.zones
+  - /etc/named.root.key
+  - /etc/named.rndc-foreman.key
