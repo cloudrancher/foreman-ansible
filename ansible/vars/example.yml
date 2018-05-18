@@ -22,7 +22,7 @@ isc_dhcp_server_subnet:
     domain: foreman-net.local
     domain_search: foreman-net.local foreman.local
     dns: "{{ bind_zone_master_server_ip }}"
-    range: 192.168.121.101 192.168.121.200
+    range: 172.16.2.101 172.16.2.200
 
 default_zone: internal
 firewalld__zone_interface:
