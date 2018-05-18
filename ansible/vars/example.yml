@@ -47,4 +47,20 @@ firewalld_service_rules:
     zone: internal
   tftp:
     state: enabled
-    zone: internal
+    zone: internal    
+
+bind_allow_query: ['localhost', '172.16.2.0/24']
+bind_listen_ipv4: ['any']
+bind_recursion: true
+bind_allow_recursion: ['localhost', '172.16.2.0/24']
+bind_dnssec_validation: false
+
+bind_zone_name: foreman.local
+bind_zone_networks: ['172.16.2']
+bind_zone_name_servers: ['foreman.local']
+bind_zone_hosts:
+  - name: '@'
+    ip: 172.16.2.1
+    aliases:
+      - ns
+      - foreman
