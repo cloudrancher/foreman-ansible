@@ -1,26 +1,26 @@
 ---
+foreman_db_username: foreman
+foreman_db_password: supersecret$42
+
 mysql_databases: 
   - name: foreman
     collation: utf8_unicode_ci
     encoding: utf8
 
 mysql_users: 
-  - name: foreman
+  - name: {{ foreman_db_username }}
     host: localhost
-    password: supersecret$42
-    priv: "foreman.*:ALL"
+    password: {{ foreman_db_password }}
+    priv: "{{ foreman_db_username }}.*:ALL"
 
 isc_dhcp_server_subnet:
   - netaddress: 172.16.2.0
     netmask: 255.255.255.0
     gateway: 172.16.2.1
     domain: foreman-net.local
-    domain_search: foreman-net.local
+    domain_search: foreman-net.local foreman.local
     dns: 172.16.2.1
-    range: 172.16.2.100 172.16.2.200
-
-foreman_db_username: foreman
-foreman_db_password: supersecret$42
+    range: 172.16.2.101 172.16.2.200
 
 default_zone: internal
 firewalld__zone_interface:
