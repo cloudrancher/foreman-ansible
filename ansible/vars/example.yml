@@ -10,9 +10,9 @@ mysql_databases:
     encoding: utf8
 
 mysql_users: 
-  - name: {{ foreman_db_username }}
+  - name: "{{ foreman_db_username }}"
     host: localhost
-    password: {{ foreman_db_password }}
+    password: "{{ foreman_db_password }}"
     priv: "{{ foreman_db_username }}.*:ALL"
 
 isc_dhcp_server_subnet:
@@ -21,7 +21,7 @@ isc_dhcp_server_subnet:
     gateway: 172.16.2.1
     domain: foreman-net.local
     domain_search: foreman-net.local foreman.local
-    dns: {{ bind_zone_master_server_ip }}
+    dns: "{{ bind_zone_master_server_ip }}"
     range: 192.168.121.101 192.168.121.200
 
 default_zone: internal
