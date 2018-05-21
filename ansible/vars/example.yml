@@ -20,7 +20,7 @@ isc_dhcp_server_subnet:
     netmask: 255.255.255.0
     gateway: 172.16.2.1
     domain: foreman-net.local
-    domain_search: foreman-net.local foreman.local
+    domain_search: foreman-net.local
     dns: "{{ bind_zone_master_server_ip }}"
     range: 172.16.2.101 172.16.2.200
 
@@ -55,12 +55,13 @@ bind_recursion: true
 bind_allow_recursion: ['localhost', '172.16.2.0/24']
 bind_dnssec_validation: false
 
-bind_zone_name: foreman.local
+bind_zone_name: foreman-net.local
 bind_zone_networks: ['172.16.2']
-bind_zone_name_servers: ['foreman.local']
+bind_zone_name_servers: ['foreman-net.local']
 bind_zone_hosts:
-  - name: '@'
+  - name: pxe
     ip: 172.16.2.1
     aliases:
+      - '@'
       - ns
       - foreman
