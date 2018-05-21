@@ -9,6 +9,7 @@
     - { role: mysql }
     - { role: isc_dhcp_server }
     - { role: tftp }
+    - { role: ansible-role-bind }
     - { role: foreman }
     - { role: foreman_proxy }
     - { role: passenger_nginx }
