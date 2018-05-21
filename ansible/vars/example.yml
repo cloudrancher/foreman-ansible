@@ -2,6 +2,7 @@
 foreman_db_username: foreman
 foreman_db_password: supersecret$42
 
+foreman_proxy_dns: true
 bind_zone_master_server_ip: 172.16.2.1
 
 mysql_databases: 
@@ -57,11 +58,9 @@ bind_dnssec_validation: false
 
 bind_zone_name: foreman-net.local
 bind_zone_networks: ['172.16.2']
-bind_zone_name_servers: ['foreman-net.local']
+bind_zone_name_servers: ['pxe']
 bind_zone_hosts:
   - name: pxe
     ip: 172.16.2.1
     aliases:
-      - '@'
-      - ns
       - foreman
