@@ -4,6 +4,15 @@
 [submodule "ansible/roles/ansible-firewalld-role"]
 	path = ansible/roles/ansible-firewalld-role
 	url = https://github.com/FlatKey/ansible-firewalld-role.git
+[submodule "ansible/roles/ansible-role-hosts"]
+	path = ansible/roles/ansible-role-hosts
+	url = https://github.com/reallyenglish/ansible-role-hosts.git
+[submodule "ansible/roles/ansible-role-hostname"]
+	path = ansible/roles/ansible-role-hostname
+	url = https://github.com/reallyenglish/ansible-role-hostname.git
+[submodule "ansible/roles/network"]
+	path = ansible/roles/network
+	url = https://github.com/linux-system-roles/network.git
 [submodule "ansible/roles/ansible-role-bind"]
 	path = ansible/roles/ansible-role-bind
 	url = https://github.com/bertvv/ansible-role-bind.git

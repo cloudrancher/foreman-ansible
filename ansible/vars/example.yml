@@ -5,6 +5,13 @@ foreman_db_password: supersecret$42
 foreman_proxy_dns: true
 bind_zone_master_server_ip: 172.16.2.1
 
+fqdn: pxe.foreman-net.local
+fqdn_short: "{{ fqdn.split('.') | first }}"
+hostname_fqdn: "{{ fqdn }}"
+hosts_extra_localhosts:
+  - "{{ fqdn }}"
+  - "{{ fqdn_short }}"
+
 mysql_databases: 
   - name: foreman
     collation: utf8_unicode_ci
@@ -24,6 +31,38 @@ isc_dhcp_server_subnet:
     domain_search: foreman-net.local
     dns: "{{ bind_zone_master_server_ip }}"
     range: 172.16.2.101 172.16.2.200
+
+network_connections:
+  - name: "internal"
+    type: "ethernet"
+    interface_name: "enp0s8"
+    zone: "internal"
+    autoconnect: yes
+    ip:
+      dhcp4: no
+      dns:
+        - 172.16.2.1
+      dns_search:
+        - foreman-net.local
+      auto6: no
+      address:
+        - 172.16.2.1/24
+  - name: "external"
+    type: "ethernet"
+    interface_name: "enp0s3"
+    zone: "external"
+    autoconnect: yes
+    ip:
+      dhcp4: yes
+      auto6: no
+  - name: "trusted"
+    type: "ethernet"
+    interface_name: "enp0s9"
+    zone: "trusted"
+    autoconnect: yes
+    ip:
+      dhcp4: yes
+      auto6: no
 
 default_zone: internal
 firewalld_zone_interface:
