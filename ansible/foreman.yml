@@ -8,6 +8,7 @@
     - { role: ansible-role-hosts }
     - { role: ansible-role-hostname }
     - { role: common }
+    - { role: network }    
     - { role: mysql }
     - { role: isc_dhcp_server }
     - { role: tftp }

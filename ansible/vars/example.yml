@@ -15,9 +15,9 @@ mysql_databases:
     encoding: utf8
 
 mysql_users: 
-  - name: {{ foreman_db_username }}
+  - name: "{{ foreman_db_username }}"
     host: localhost
-    password: {{ foreman_db_password }}
+    password: "{{ foreman_db_password }}"
     priv: "{{ foreman_db_username }}.*:ALL"
 
 isc_dhcp_server_subnet:
@@ -28,6 +28,38 @@ isc_dhcp_server_subnet:
     domain_search: lab.local
     dns: 192.168.121.1
     range: 192.168.121.20 192.168.121.100
+
+network_connections:
+  - name: "internal"
+    type: "ethernet"
+    interface_name: "enp0s8"
+    zone: "internal"
+    autoconnect: yes
+    ip:
+      dhcp4: no
+      dns:
+        - 172.16.2.1
+      dns_search:
+        - foreman-net.local
+      auto6: no
+      address:
+        - 172.16.2.1/24
+  - name: "external"
+    type: "ethernet"
+    interface_name: "enp0s3"
+    zone: "external"
+    autoconnect: yes
+    ip:
+      dhcp4: yes
+      auto6: no
+  - name: "trusted"
+    type: "ethernet"
+    interface_name: "enp0s9"
+    zone: "trusted"
+    autoconnect: yes
+    ip:
+      dhcp4: yes
+      auto6: no
 
 default_zone: internal
 firewalld__zone_interface:
