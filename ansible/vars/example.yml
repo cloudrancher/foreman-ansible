@@ -22,6 +22,38 @@ isc_dhcp_server_subnet:
     dns: 192.168.121.1
     range: 192.168.121.20 192.168.121.100
 
+network_connections:
+  - name: "internal"
+    type: "ethernet"
+    interface-name: "enp0s8"
+    zone: "internal"
+    autoconnect: yes
+    ip:
+      dhcp4: no
+      dns:
+        - 172.16.2.1
+      dns_search:
+        - foreman-net.local
+      auto6: no
+      address:
+        - 172.16.2.1/24
+  - name: "external"
+    type: "ethernet"
+    interface-name: "enp0s3"
+    zone: "external"
+    autoconnect: yes
+    ip:
+      dhcp4: yes
+      auto6: no
+  - name: "trusted"
+    type: "ethernet"
+    interface-name: "enp0s9"
+    zone: "trusted"
+    autoconnect: yes
+    ip:
+      dhcp4: yes
+      auto6: no
+
 default_zone: internal
 firewalld__zone_interface:
   external: enp0s3
