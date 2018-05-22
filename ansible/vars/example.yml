@@ -2,6 +2,13 @@
 foreman_db_username: foreman
 foreman_db_password: supersecret$42
 
+fqdn: pxe.foreman-net.local
+fqdn_short: "{{ fqdn.split('.') | first }}"
+hostname_fqdn: "{{ fqdn }}"
+hosts_extra_localhosts:
+  - "{{ fqdn }}"
+  - "{{ fqdn_short }}"
+
 mysql_databases: 
   - name: foreman
     collation: utf8_unicode_ci
