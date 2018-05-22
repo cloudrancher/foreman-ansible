@@ -5,6 +5,8 @@
   vars_files:
     - vars/example.yml
   roles:
+    - { role: ansible-role-hosts }
+    - { role: ansible-role-hostname }
     - { role: common }
     - { role: mysql }
     - { role: isc_dhcp_server }
