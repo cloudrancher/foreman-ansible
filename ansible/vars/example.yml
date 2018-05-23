@@ -96,10 +96,10 @@ bind_listen_ipv4: ['any']
 bind_recursion: true
 bind_allow_recursion: ['localhost', '172.16.2.0/24']
 bind_dnssec_validation: false
-bind_default_zone_files:
-  - /etc/named.root.key
-  - /etc/named.rfc1912.zones
+bind_extra_include_files:
   - /etc/named.rndc-foreman.key
+bind_zone_dir: "data/"
+bind_zone_file_mode: "0660"
 bind_zone_name: foreman-net.local
 bind_zone_networks: ['172.16.2']
 bind_zone_name_servers: ['pxe']
