@@ -15,4 +15,5 @@
 	url = https://github.com/linux-system-roles/network.git
 [submodule "ansible/roles/ansible-role-bind"]
 	path = ansible/roles/ansible-role-bind
-	url = https://github.com/bertvv/ansible-role-bind.git
+	url = https://github.com/cloudrancher/ansible-role-bind.git
+	branch = zone-file-path
