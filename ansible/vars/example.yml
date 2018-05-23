@@ -57,20 +57,16 @@ network_connections:
     ip:
       dhcp4: yes
       auto6: no
-  - name: "trusted"
-    type: "ethernet"
-    interface_name: "enp0s9"
-    zone: "trusted"
-    autoconnect: yes
-    ip:
-      dhcp4: yes
-      auto6: no
+  # - name: "trusted"
+  #   type: "ethernet"
+  #   interface_name: "enp0s9"
+  #   zone: "trusted"
+  #   autoconnect: yes
+  #   ip:
+  #     dhcp4: yes
+  #     auto6: no
 
 default_zone: internal
-firewalld_zone_interface:
-  external: enp0s3
-  internal: enp0s8
-  trusted: enp0s9
 firewalld_service_rules:
   dhcp:
     state: enabled
@@ -98,14 +94,15 @@ bind_allow_recursion: ['localhost', '172.16.2.0/24']
 bind_dnssec_validation: false
 bind_extra_include_files:
   - /etc/named.rndc-foreman.key
-bind_zone_dir: "data/"
+bind_zone_dir: "/var/named/dynamic/"
 bind_zone_file_mode: "0660"
-bind_zone_name: foreman-net.local
-bind_zone_networks: ['172.16.2']
-bind_zone_name_servers: ['pxe']
-allow_update: ['key "foreman";']
-bind_zone_hosts:
-  - name: pxe
-    ip: 172.16.2.1
-    aliases:
-      - foreman
+bind_zone_domains: 
+  - name: foreman-net.local
+    networks: ['172.16.2']
+    name_servers: ['pxe']
+    allow_update: ['key "foreman"']
+    hosts:
+    - name: pxe
+      ip: 172.16.2.1
+      aliases:
+        - foreman
