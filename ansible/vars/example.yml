@@ -14,7 +14,7 @@ hosts_extra_localhosts:
   - "{{ fqdn }}"
   - "{{ fqdn_short }}"
 
-mysql_databases: 
+mysql_databases:
   - name: foreman
     collation: utf8_unicode_ci
     encoding: utf8
@@ -85,7 +85,7 @@ firewalld_service_rules:
     zone: internal
   tftp:
     state: enabled
-    zone: internal    
+    zone: internal
 
 bind_allow_query: ['localhost', '172.16.2.0/24']
 bind_listen_ipv4: ['any']
@@ -96,7 +96,7 @@ bind_extra_include_files:
   - /etc/named.rndc-foreman.key
 bind_zone_dir: "/var/named/dynamic/"
 bind_zone_file_mode: "0660"
-bind_zone_domains: 
+bind_zone_domains:
   - name: foreman-net.local
     networks: ['172.16.2']
     name_servers: ['pxe']
